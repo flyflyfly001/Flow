@@ -438,6 +438,22 @@ int main(void)
 			float flow_compx = pixel_flow_x / focal_length_px / (get_time_between_images() / 1000000.0f);
 			float flow_compy = pixel_flow_y / focal_length_px / (get_time_between_images() / 1000000.0f);
 
+			if (qual > 0)
+			{
+				valid_frame_count++;
+
+				uint32_t deltatime = (get_boot_time_us() - lasttime);
+				integration_timespan += deltatime;
+				accumulated_flow_x += pixel_flow_y  / focal_length_px * 1.0f; //rad axis swapped to align x flow around y axis
+				accumulated_flow_y += pixel_flow_x  / focal_length_px * -1.0f;//rad
+				accumulated_gyro_x += x_rate * deltatime / 1000000.0f;	//rad
+				accumulated_gyro_y += y_rate * deltatime / 1000000.0f;	//rad
+				accumulated_gyro_z += z_rate * deltatime / 1000000.0f;	//rad
+				accumulated_framecount++;
+				accumulated_quality += qual;
+			}
+
+
 			/* integrate velocity and output values only if distance is valid */
 			if (distance_valid)
 			{
@@ -451,17 +467,6 @@ int main(void)
 				{
 					velocity_x_sum += new_velocity_x;
 					velocity_y_sum += new_velocity_y;
-					valid_frame_count++;
-
-					uint32_t deltatime = (get_boot_time_us() - lasttime);
-					integration_timespan += deltatime;
-					accumulated_flow_x += pixel_flow_y  / focal_length_px * 1.0f; //rad axis swapped to align x flow around y axis
-					accumulated_flow_y += pixel_flow_x  / focal_length_px * -1.0f;//rad
-					accumulated_gyro_x += x_rate * deltatime / 1000000.0f;	//rad
-					accumulated_gyro_y += y_rate * deltatime / 1000000.0f;	//rad
-					accumulated_gyro_z += z_rate * deltatime / 1000000.0f;	//rad
-					accumulated_framecount++;
-					accumulated_quality += qual;
 
 					/* lowpass velocity output */
 					velocity_x_lp = global_data.param[PARAM_BOTTOM_FLOW_WEIGHT_NEW] * new_velocity_x +
@@ -575,12 +580,11 @@ int main(void)
 				{
 					/* rough local position estimate for unit testing */
 					lpos.x += ground_distance*accumulated_flow_x;
-					lpos.y += ground_distance*accumulated_flow_y;
+					lpos.y += ground_distancee*accumulated_flow_y;
 					lpos.z = -ground_distance;
- 					/* velocity not directly measured and not important for testing */
-					lpos.vx = 0;
-					lpos.vy = 0;
-					lpos.vz = 0;
+					lpos.vx = ground_distance*_accumulated_flow_x/integration_timespan;
+					lpos.vy = ground_distance*_accumulated_flow_y/integration_timespan;
+					lpos.vz = 0; // no direct measurement, just ignore
 
 				} else {
 					/* toggling param allows user reset */

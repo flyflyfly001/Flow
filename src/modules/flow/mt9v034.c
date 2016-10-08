@@ -126,20 +126,45 @@ void mt9v034_context_configuration(void)
 	uint16_t agc_update_freq = 0x02; // default Number of frames to skip between changes in AGC VALID RANGE: 0-15
 	uint16_t agc_low_pass = 0x02; // default VALID RANGE: 0-2
 
+	resolution_ctrl = 0x0202;
+
+	max_exposure = global_data.param[PARAM_EXPOSURE_MAX];
+	coarse_sw1 = global_data.param[PARAM_SHTR_W_1];
+	coarse_sw1 = global_data.param[PARAM_SHTR_W_2];
+	total_shutter_width = global_data.param[PARAM_SHTR_W_TOT];
+	bool hdr_enable_flag = global_data.param[PARAM_HDR] > 0;
+	if (hdr_enable_flag) {
+		hdr_enabled = 0x0100;
+	} else {
+		hdr_enabled = 0x0000;
+	}
+
+	bool aec_enable_flag = global_data.param[PARAM_AEC] > 0;
+	aec_agc_enabled = 0x0000;
+	if (aec_enable_flag) {
+		aec_agc_enabled |= (1 << 0);
+	}
+
+	bool agc_enable_flag = global_data.param[PARAM_AGC] > 0;
+	if (agc_enable_flag) {
+		aec_agc_enabled |= (1 << 1);
+	}
+
+	desired_brightness = global_data.param[PARAM_BRIGHT];
 
 	/*if (FLOAT_AS_BOOL(global_data.param[PARAM_IMAGE_LOW_LIGHT]))*/
 	/*{*/
-		min_exposure = 0x0001;
+		/*min_exposure = 0x0001;*/
 		/*max_exposure = 0x0040;*/
-		max_exposure = 300;
-		desired_brightness = 58; // VALID RANGE: 8-64
-		resolution_ctrl = 0x0202;//10 bit linear
-		hdr_enabled = 0x0000; // off
-		aec_agc_enabled = 0x0303; // on
-		coarse_sw1 = 0x01BB; // default from context A
-		coarse_sw2 = 0x01D9; // default from context A
-		shutter_width_ctrl = 0x0164; // default from context A
-		total_shutter_width = 0x01E0; // default from context A
+		/*max_exposure = 300;*/
+		/*desired_brightness = 58; // VALID RANGE: 8-64*/
+		/*resolution_ctrl = 0x0202;//10 bit linear*/
+		/*hdr_enabled = 0x0000; // off*/
+		/*aec_agc_enabled = 0x0303; // on*/
+		/*coarse_sw1 = 0x01BB; // default from context A*/
+		/*coarse_sw2 = 0x01D9; // default from context A*/
+		/*shutter_width_ctrl = 0x0164; // default from context A*/
+		/*total_shutter_width = 0x01E0; // default from context A*/
 	/*}*/
 	/*else*/
 	/*{*/
