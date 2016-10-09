@@ -281,7 +281,9 @@ void handle_mavlink_message(mavlink_channel_t chan,
 									i == PARAM_HDR ||
 									i == PARAM_AEC ||
 									i == PARAM_AGC ||
-									i == PARAM_BRIGHT)
+									i == PARAM_BRIGHT ||
+									i == PARAM_GAIN_MAX
+									)
 							{
 								mt9v034_context_configuration();
 								dma_reconfigure();

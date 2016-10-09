@@ -539,10 +539,11 @@ int main(void)
                         PROBE_3(true);
 
             //serial mavlink  + usb mavlink output throttled
-			uint32_t time_since_last_pub = get_boot_time_us() - time_last_pub;
-			if (time_since_last_pub > (1.0e3f/ global_data.param[PARAM_BOTTOM_FLOW_PUB_RATE]))
+			uint32_t now = get_boot_time_us();
+			uint32_t time_since_last_pub = now - time_last_pub;
+			if (time_since_last_pub > (1.0e6f/global_data.param[PARAM_BOTTOM_FLOW_PUB_RATE]))
 			{
-				time_last_pub = get_boot_time_us();
+				time_last_pub = now;
 
 				float flow_comp_m_x = 0.0f;
 				float flow_comp_m_y = 0.0f;
