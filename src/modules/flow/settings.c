@@ -231,7 +231,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_AGC], "AGC");
 	global_data.param_access[PARAM_AGC] = READ_WRITE;
 
-	global_data.param[PARAM_BRIGHT] = 10;
+	global_data.param[PARAM_BRIGHT] = 35;
 	strcpy(global_data.param_name[PARAM_BRIGHT], "BRIGHT");
 	global_data.param_access[PARAM_BRIGHT] = READ_WRITE;
 
