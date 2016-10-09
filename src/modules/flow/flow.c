@@ -512,7 +512,7 @@ uint8_t compute_flow(uint8_t *image1, uint8_t *image2, float x_rate, float y_rat
 				uint32_t diff = compute_diff(image1, i, j, (uint16_t) global_data.param[PARAM_IMAGE_WIDTH]);
 				if (diff > global_data.param[PARAM_BOTTOM_FLOW_FEATURE_THRESHOLD])
 				{
-					image1[j * ((uint16_t) global_data.param[PARAM_IMAGE_WIDTH]) + i] = 0;
+					image1[j * ((uint16_t) global_data.param[PARAM_IMAGE_WIDTH]) + i] = 255;
 				}
 
 			}
