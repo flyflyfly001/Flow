@@ -159,7 +159,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_VIDEO_ONLY], "VIDEO_ONLY");
 	global_data.param_access[PARAM_VIDEO_ONLY] = READ_WRITE;
 
-	global_data.param[PARAM_VIDEO_RATE] = 150;
+	global_data.param[PARAM_VIDEO_RATE] = 50;
 	strcpy(global_data.param_name[PARAM_VIDEO_RATE], "VIDEO_RATE");
 	global_data.param_access[PARAM_VIDEO_RATE] = READ_WRITE;
 
@@ -195,9 +195,9 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_WEIGHT_NEW], "BFLOW_W_NEW");
 	global_data.param_access[PARAM_BOTTOM_FLOW_WEIGHT_NEW] = READ_WRITE;
 
-	global_data.param[PARAM_BOTTOM_FLOW_SERIAL_THROTTLE_FACTOR] = 10.0f;
-	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_SERIAL_THROTTLE_FACTOR], "BFLOW_THROTT");
-	global_data.param_access[PARAM_BOTTOM_FLOW_SERIAL_THROTTLE_FACTOR] = READ_WRITE;
+	global_data.param[PARAM_BOTTOM_FLOW_PUB_RATE] = 10.0f;
+	strcpy(global_data.param_name[PARAM_BOTTOM_FLOW_PUB_RATE], "BFLOW_RATE");
+	global_data.param_access[PARAM_BOTTOM_FLOW_PUB_RATE] = READ_WRITE;
 
 	global_data.param[PARAM_EXPOSURE_MAX] = 300;
 	strcpy(global_data.param_name[PARAM_EXPOSURE_MAX], "EXPOSURE_MAX");
@@ -215,7 +215,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_SHTR_W_TOT], "SHTR_W_TOT");
 	global_data.param_access[PARAM_SHTR_W_TOT] = READ_WRITE;
 
-	global_data.param[PARAM_HDR] = 0;
+	global_data.param[PARAM_HDR] = 1;
 	strcpy(global_data.param_name[PARAM_HDR], "HDR");
 	global_data.param_access[PARAM_HDR] = READ_WRITE;
 
@@ -227,7 +227,7 @@ void global_data_reset_param_defaults(void){
 	strcpy(global_data.param_name[PARAM_AGC], "AGC");
 	global_data.param_access[PARAM_AGC] = READ_WRITE;
 
-	global_data.param[PARAM_BRIGHT] = 58;
+	global_data.param[PARAM_BRIGHT] = 10;
 	strcpy(global_data.param_name[PARAM_BRIGHT], "BRIGHT");
 	global_data.param_access[PARAM_BRIGHT] = READ_WRITE;
 

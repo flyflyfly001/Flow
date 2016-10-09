@@ -342,6 +342,7 @@ int main(void)
 	static uint32_t integration_timespan = 0;
 	static uint32_t lasttime = 0;
 	uint32_t time_since_last_sonar_update= 0;
+	uint32_t time_last_pub= 0;
 
 	uavcan_start();
 	/* main loop */
@@ -538,8 +539,10 @@ int main(void)
                         PROBE_3(true);
 
             //serial mavlink  + usb mavlink output throttled
-			if (counter % (uint32_t)global_data.param[PARAM_BOTTOM_FLOW_SERIAL_THROTTLE_FACTOR] == 0)//throttling factor
+			uint32_t time_since_last_pub = get_boot_time_us() - time_last_pub;
+			if (time_since_last_pub > (1.0e3f/ global_data.param[PARAM_BOTTOM_FLOW_PUB_RATE]))
 			{
+				time_last_pub = get_boot_time_us();
 
 				float flow_comp_m_x = 0.0f;
 				float flow_comp_m_y = 0.0f;
