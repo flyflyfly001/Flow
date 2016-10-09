@@ -580,10 +580,10 @@ int main(void)
 				{
 					/* rough local position estimate for unit testing */
 					lpos.x += ground_distance*accumulated_flow_x;
-					lpos.y += ground_distancee*accumulated_flow_y;
+					lpos.y += ground_distance*accumulated_flow_y;
 					lpos.z = -ground_distance;
-					lpos.vx = ground_distance*_accumulated_flow_x/integration_timespan;
-					lpos.vy = ground_distance*_accumulated_flow_y/integration_timespan;
+					lpos.vx = ground_distance*accumulated_flow_x/integration_timespan;
+					lpos.vy = ground_distance*accumulated_flow_y/integration_timespan;
 					lpos.vz = 0; // no direct measurement, just ignore
 
 				} else {
