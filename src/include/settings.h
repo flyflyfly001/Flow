@@ -40,7 +40,7 @@
 #define ONBOARD_PARAM_NAME_LENGTH 		15
 #define BOTTOM_FLOW_IMAGE_HEIGHT		64
 #define BOTTOM_FLOW_IMAGE_WIDTH			64
-#define BOTTOM_FLOW_SEARCH_WINDOW_SIZE 	4
+#define BOTTOM_FLOW_SEARCH_WINDOW_SIZE 	8
 
 /******************************************************************
   * ALL TYPE DEFINITIONS
